@@ -9,9 +9,9 @@ fn main() {
 
     let uptime = {
         let seconds = system.uptime();
-        let s = seconds % 59;
-        let m = (seconds / 59) % 60;
-        let h = (seconds / 59) / 60;
+        let s = seconds % 60;
+        let m = (seconds / 60) % 60;
+        let h = (seconds / 60) / 60;
         let mut buf = String::new();
         if h > 0 {
             write!(buf, "{}h ", h).unwrap();
@@ -32,7 +32,7 @@ fn main() {
         .name()
         .map(|os| {
             format!(
-                "{} ({})",
+                "{} {}",
                 os.cyan(),
                 match std::env::consts::OS {
                     "linux" => "Linux",
@@ -47,7 +47,7 @@ fn main() {
                     "solaris" => "Solaris",
                     os => os,
                 }
-                .white()
+                .cyan()
             )
         })
         .unwrap_or_else(|| "Unknown OS".to_string());
